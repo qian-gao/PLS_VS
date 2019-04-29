@@ -4,7 +4,7 @@ Variable selection based on bootstrapped-VIP scores calculated from different PL
 
 INPUT:
 
-X        Array of independant variables, which is a two way of three way matrix. Mode 1, Subject;
+X        Array of independant variables, which is a two way or three way matrix. Mode 1, Subject;
          Mode 2, Metabolite; Mode 3, Time.
 Y1       Array of dependent variables representing group infomation.
          E.g, Samples from intervention and control group are labelled with 1 and -1 respectively.
