@@ -1,4 +1,4 @@
-# PLS_VS
+# PLSvar_sel
 
 This code accompanies the following manuscript submitted to the journal Metabolites (MDPI): Comparison of bi- and tri-linear PLS models for variable selection in metabolomic time series experiments. Qian Gao, Lars Dragsted, Timothy Ebbels*.
 
