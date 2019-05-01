@@ -12,23 +12,14 @@ INPUT:
 X        Array of independant variables, which is a two way or three way matrix. 
              Mode 1, Subject, S = number of subjects;
              Mode 2, Metabolite, J= number of metabolites; 
-             Mode 3, Time, T = number of time points.         
+             Mode 3, Time, T = number of time points.
+
 Y1       Array of dependent variables representing group infomation.
-         E.g, Samples from intervention and control group are labelled with 1 and -1 respectively.         
+         E.g, Samples from intervention and control group are labelled with 1 and -1 respectively.
+         
 Y2       Array of dependant variables representing time response information. 
          E.g, Samples from response and non-response class are labelled with 10 and 1 respectively.
-MaxFac   Maximal number of components.
-Type     Type of model to use
-         1 bilinear X and group dummy Y
-         2 bilinear X and time-response dummy Y
-         3 bilinear X and group×time-response dummy Y
-         4 trilinear X and group dummy Y
-         5 trilinear X and group/time-response dummy Y
-btnr     Number of bootstrap datasets.
-btmd     Resampling method for bootstrap 
-         1 Balanced resampling 
-         2 Balanced resampling within individual groups 
-
+         
 When the same dataset is contructed to adpat to different types of model, the sizes of X, Y1 and Y2 should be as follows:
 
          Model           Size
@@ -40,7 +31,28 @@ When the same dataset is contructed to adpat to different types of model, the si
          5      S×T×J    S×1      1×T
 
 During the running of the function, X will be preprocessed (autoscaling) and Y1 and Y2 will be constructed into 
-a new dummy Y for further modelling. The optimal number of components will be decided based on a single cross validation.
+a new dummy Y for further modelling.
+        
+MaxFac   Maximal number of components.
+         The optimal number of components will be decided based on a single cross validation.
+         
+Type     Type of model to use
+         1 bilinear X and group dummy Y
+         2 bilinear X and time-response dummy Y
+         3 bilinear X and group×time-response dummy Y
+         4 trilinear X and group dummy Y
+         5 trilinear X and group/time-response dummy Y
+         
+btnr     Number of bootstrap datasets.
+
+btmd     Resampling method for bootstrap 
+         1 Balanced resampling 
+         2 Balanced resampling within individual groups 
+
+PLS models with an optimal number of latent variables were built on each bootstrap subset and the Variable Importance in 
+Projection (VIP) was calculated for each variable. For each variable, the mean (VIP*) and standard deviation (σ_VIP) of 
+the btnr VIP values were obtained. The variable was selected if the lower-bound of the one standard deviation error bar 
+was above 1 (i.e., VIP*-σ_VIP>1). 
 
 
 OUTPUT:
