@@ -1,0 +1,51 @@
+PLSvar_sel
+
+Variable selection based on bootstrapped-VIP scores calculated from different PLS models. 
+
+Main function: [X_sel]=PLSvar_sel(X,Y1,Y2,MaxFac,Type,btnr,btmd)
+
+PLSvar_sel provides five PLS models with different combinations of bilinear/trilinear X and group/time response dummy Y. 
+Based on the type of model chosen, the X should be construct into two way or three way accordingly.
+
+INPUT:
+
+X        Array of independant variables, which is a two way or three way matrix. 
+             Mode 1, Subject, S = number of subjects;
+             Mode 2, Metabolite, J= number of metabolites; 
+             Mode 3, Time, T = number of time points.         
+Y1       Array of dependent variables representing group infomation.
+         E.g, Samples from intervention and control group are labelled with 1 and -1 respectively.         
+Y2       Array of dependant variables representing time response information. 
+         E.g, Samples from response and non-response class are labelled with 10 and 1 respectively.
+MaxFac   Maximal number of components.
+Type     Type of model to use
+         1 bilinear X and group dummy Y
+         2 bilinear X and time-response dummy Y
+         3 bilinear X and group×time-response dummy Y
+         4 trilinear X and group dummy Y
+         5 trilinear X and group/time-response dummy Y
+btnr     Number of bootstrap datasets.
+btmd     Resampling method for bootstrap 
+         1 Balanced resampling 
+         2 Balanced resampling within individual groups 
+
+When the same dataset is contructed to adpat to different models, the sizes of X, Y1 and Y2 should be as follows:
+
+         Model           Size
+         Type     X       Y1       Y2
+         1      ST×J     ST×1     ST×1
+         2      ST×J     ST×1     ST×1
+         3      ST×J     ST×1     ST×1
+         4      S×T×J    S×1      1×T
+         5      S×T×J    S×1      1×T
+
+During the running of the function, X will be preprocessed (autoscaling) and Y1 and Y2 will be constructed into 
+a new dummy Y for further modelling. The optimal number of components will be decided based on a single cross validation.
+
+
+OUTPUT:
+X_sel    Array of selected variables.
+
+In the datasets folder, a simulated dataset and a real dataset are provided as examples. These datasets are constructed 
+in both two way and three way based on the requirements of the function PLSvar_sel. They can be tested directly without 
+any transformation.  
