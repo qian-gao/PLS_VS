@@ -29,7 +29,7 @@ btmd     Resampling method for bootstrap
          1 Balanced resampling 
          2 Balanced resampling within individual groups 
 
-When the same dataset is contructed to adpat to different models, the sizes of X, Y1 and Y2 should be as follows:
+When the same dataset is contructed to adpat to different types of model, the sizes of X, Y1 and Y2 should be as follows:
 
          Model           Size
          Type     X       Y1       Y2
