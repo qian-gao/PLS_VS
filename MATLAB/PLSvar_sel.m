@@ -1,4 +1,4 @@
-function[X_sel]=PLSvar_sel(X,Y1,Y2,MaxFac,Type,btnr,btmd);
+function[X_sel]=PLSvar_sel(X,Y1,Y2,MaxFac,Type,btnr,btmd,VIPt);
 
 % Variable selection based on bootstrapped-VIP scores calculated from 
 % different PLS models 
@@ -24,11 +24,14 @@ function[X_sel]=PLSvar_sel(X,Y1,Y2,MaxFac,Type,btnr,btmd);
 % btnr     Number of bootstrap datasets
 % btmd     Resampling method for bootstrap. 1. Balanced resampling 2.
 %          Balanced resampling within individual groups. 
-%
+% VIPt     VIP threshold
 %
 % OUTPUT
-% X_sel    Array of selected variables
+% X_sel.data    Array of selected variables
+% X_sel.index   Index of selected variables
+% X_sel.vip     Mean VIP for each variable from bootstrapping
 
+Xorig=X;
 switch Type
     case 1
         X=autoscaling(X,2);
@@ -73,19 +76,28 @@ else Fac=MaxFac;
 end
 
 % Calculate bootrapped VIP
-[Vsel]=BTVip(X,Y,Y1,Fac,btnr,btmd);
+[Vsel]=BTVip(X,Y,Y1,Fac,btnr,btmd,VIPt);
 vip=Vsel.mvip;
 sel=Vsel.sel;
 
 % Variable selection
 [B I]=sort(vip,'descend');
 sel=sel(I);
-X=X(:,I);
-X_sel=X(:,sel);
+X=Xorig(:,I);
+vip=vip(:,I);
+index=[1:1:size(X,2)];
+index=index(:,I);
+if ismember(Type,[1 2 3])
+   X_sel.data=Xorig(:,sel);
+else
+   X_sel.data=Xorig(:,:,sel);
+end
+X_sel.index=index(1,sel);
+X_sel.vip=vip(1,sel);
 end
 
 
-function [Vsel]=BTVip(Xc,Yc,Y1,Fac,btnr,btmd);
+function [Vsel]=BTVip(Xc,Yc,Y1,Fac,btnr,btmd,VIPt);
 
 Ic=size(Xc,1);
 DimXc=size(Xc);
@@ -156,7 +168,7 @@ lower=mvip-svip;
 
 sel=false(1,DimXc(end));
 for i=1:size(vip,2)
-    if lower(i)>=1
+    if lower(i)>=VIPt
         sel(i)=true;
     end
 end
