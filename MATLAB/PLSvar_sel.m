@@ -83,14 +83,17 @@ sel=Vsel.sel;
 % Variable selection
 [B I]=sort(vip,'descend');
 sel=sel(I);
-X=Xorig(:,I);
 vip=vip(:,I);
-index=[1:1:size(X,2)];
-index=index(:,I);
 if ismember(Type,[1 2 3])
-   X_sel.data=Xorig(:,sel);
+   X=Xorig(:,I);
+   X_sel.data=X(:,sel);
+   index=[1:1:size(X,2)];
+   index=index(:,I);
 else
-   X_sel.data=Xorig(:,:,sel);
+   X=Xorig(:,:,I);
+   X_sel.data=X(:,:,sel);
+   index=[1:1:size(X,3)];
+   index=index(:,I);
 end
 X_sel.index=index(1,sel);
 X_sel.vip=vip(1,sel);
