@@ -1,14 +1,15 @@
-function PLOTvar_sel(X_two_way,Y1,Ytime,nr);
+function PLOTvar_sel(X_two_way,Y1_two_way,Ytime,nr);
 
 % Plot temporal profiles for selected variables
 %
 % INPUT
 % X_two_way    Array of independant variables, which is a two way matrix. 
-% Y1           Array of dependent variables representing group infomation.
+% Y1_two_way   Array of dependent variables representing group infomation.
 %              E.g, Samples from intervention and control group are labelled 
 %                   with 1 and -1 respectively.
 % Ytime        Array of dependant variables representing time
-% nr           The index of selected variable resulted from X_sel.index. Input one number a time.     
+% nr           The index of selected variable resulted from X_sel.index. 
+%              Input one number a time.  
 %
 % OUTPUT
 % Figure   Temporal profiles for selected variables
@@ -26,10 +27,10 @@ timepoints=sort(unique(Ytime))';
 
 % Processing
 datatemp=data;
-data1=datatemp(Y1==1,:);
-data2=datatemp(Y1==-1,:);
-Ytime1=Ytime(Y1==1,:);
-Ytime2=Ytime(Y1==-1,:);
+data1=datatemp(Y1_two_way==1,:);
+data2=datatemp(Y1_two_way==-1,:);
+Ytime1=Ytime(Y1_two_way==1,:);
+Ytime2=Ytime(Y1_two_way==-1,:);
 for j=1:size(timepoints,2)
     data1t=data1(Ytime1==timepoints(j),:);
     data2t=data2(Ytime2==timepoints(j),:);
