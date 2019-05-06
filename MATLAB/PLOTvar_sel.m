@@ -3,13 +3,12 @@ function PLOTvar_sel(X_two_way,Y1,Ytime,nr);
 % Plot temporal profiles for selected variables
 %
 % INPUT
-% X_two_way    Selected variables resulted from PLSvar_sel 
+% X_two_way    Array of independant variables, which is a two way matrix. 
 % Y1           Array of dependent variables representing group infomation.
 %              E.g, Samples from intervention and control group are labelled 
 %                   with 1 and -1 respectively.
 % Ytime        Array of dependant variables representing time
-% nr           The index of selected variable in X_sel.index. Input one number 
-%              at a time   
+% nr           The index of selected variable resulted from X_sel.index. Input one number a time.     
 %
 % OUTPUT
 % Figure   Temporal profiles for selected variables
